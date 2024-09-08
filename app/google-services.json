@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "568984782966",
+    "project_id": "histopath-4a972",
+    "storage_bucket": "histopath-4a972.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568984782966:android:2be90ed938ade36a7b7757",
+        "android_client_info": {
+          "package_name": "com.example.histopath"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTFM_HhHbMV4AnBYPZjH8-tLjHgU2sqKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
