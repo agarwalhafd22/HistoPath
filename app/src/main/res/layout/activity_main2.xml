@@ -16,16 +16,6 @@
             android:id="@id/toolbar"
             layout="@layout/toolbar"/>
 
-        <Button
-            android:id="@+id/logOutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -34,6 +24,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/header"
-        app:menu="@menu/main_menu" />
+        app:menu="@menu/main_menu_teacher" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

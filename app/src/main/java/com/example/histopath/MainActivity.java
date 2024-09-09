@@ -4,13 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView headerUserEmailTextView, headerUserNameTextView, headerTextView16;
 
-    Button logOutButton;
+    CardView gastroIntCardView, renalSystemCardView, femaleRepCardView, respiratoryCardView, nervousCardView;
 
     String email;
     String[] userData = new String[4];
@@ -42,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
-        logOutButton = findViewById(R.id.logOutButton);
+
+        gastroIntCardView=findViewById(R.id.gastroIntCardView);
+        renalSystemCardView=findViewById(R.id.renalSystemCardView);
+        femaleRepCardView=findViewById(R.id.femaleRepCardView);
+        respiratoryCardView=findViewById(R.id.RespiratoryCardView);
+        nervousCardView=findViewById(R.id.NervousCardView);
 
         navigationView.bringToFront();
 
@@ -56,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
         headerUserEmailTextView = headerView.findViewById(R.id.userEmailTextView);
@@ -86,17 +97,38 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // Logout button functionality
-        logOutButton.setOnClickListener(new View.OnClickListener() {
+        gastroIntCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), StudentLogin.class);
+                Intent intent = new Intent(MainActivity.this, GastroQuiz.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
+
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.logout)
+        {
+            Toast.makeText(this, "Logging Out...", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), StudentLogin.class);
+            startActivity(intent);
+            finish();
+            item.setChecked(false);
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return  true;
+    }
+
+
+
+
+
+
+
+
+
+
 
     // FirebaseCallback interface to handle asynchronous data retrieval
     public interface FirebaseCallback {

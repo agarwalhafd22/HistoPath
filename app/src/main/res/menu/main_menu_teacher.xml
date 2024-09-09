@@ -6,8 +6,19 @@
             android:title="Update Profile">
         </item>
         <item
-            android:id="@+id/quiz"
-            android:title="Quiz">
+            android:id="@+id/createQuiz"
+            android:title="Create Quiz">
         </item>
+        <item
+            android:id="@+id/createOrganSystem"
+            android:title="Create Organ System">
+        </item>
+
     </group>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Log Out"
+        android:layout_gravity="bottom">
+    </item>
 </menu>

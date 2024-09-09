@@ -21,8 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class StudentLogin extends AppCompatActivity {
@@ -39,10 +41,64 @@ public class StudentLogin extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+            String currentUserEmail = currentUser.getEmail();
+            if (currentUserEmail != null) {
+                String formattedEmail = currentUserEmail.replace(".", ","); // Replace '.' with ',' if needed for Firebase
+                checkUserType(formattedEmail);
+            }
         }
+    }
+
+    private void checkUserType(String email) {
+        DatabaseReference studentRef = FirebaseDatabase.getInstance().getReference("StudentDB");
+        DatabaseReference teacherRef = FirebaseDatabase.getInstance().getReference("TeacherDB");
+
+        // Check if the email exists in StudentDB
+        studentRef.child(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Email found in StudentDB, redirect to MainActivity
+                    Intent studentIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(studentIntent);
+                    finish();
+                } else {
+                    // Check in TeacherDB if not found in StudentDB
+                    checkInTeacherDB(email);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle any database error here
+                Toast.makeText(getApplicationContext(), "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkInTeacherDB(String email) {
+        DatabaseReference teacherRef = FirebaseDatabase.getInstance().getReference("TeacherDB");
+
+        teacherRef.child(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Email found in TeacherDB, redirect to MainActivity2
+                    Intent teacherIntent = new Intent(getApplicationContext(), MainActivity2.class);
+                    startActivity(teacherIntent);
+                    finish();
+                } else {
+                    // If the email is not found in both, handle error or fallback
+                    Toast.makeText(getApplicationContext(), "User not found in Student or Teacher database", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle any database error here
+                Toast.makeText(getApplicationContext(), "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

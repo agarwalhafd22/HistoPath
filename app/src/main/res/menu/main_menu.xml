@@ -10,4 +10,10 @@
             android:title="Quiz">
         </item>
     </group>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Log Out"
+        android:layout_gravity="bottom">
+    </item>
 </menu>
