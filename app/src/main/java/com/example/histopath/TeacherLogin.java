@@ -3,10 +3,12 @@ package com.example.histopath;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +47,7 @@ public class TeacherLogin extends AppCompatActivity {
         studentTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 Intent intent=new Intent(TeacherLogin.this, StudentLogin.class);
                 startActivity(intent);
                 finish();
@@ -54,6 +57,7 @@ public class TeacherLogin extends AppCompatActivity {
         signUpTeacherLoginTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 Intent intent=new Intent(TeacherLogin.this, TeacherSignUp.class);
                 startActivity(intent);
             }
@@ -62,6 +66,7 @@ public class TeacherLogin extends AppCompatActivity {
         signInButtonTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 String email=String.valueOf(emailEditTextTeacherLogin.getText());
                 String password=String.valueOf(passwordEditTextTeacherLogin.getText());
                 if(TextUtils.isEmpty(email)||TextUtils.isEmpty(password))
@@ -111,5 +116,13 @@ public class TeacherLogin extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

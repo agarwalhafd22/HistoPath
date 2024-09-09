@@ -3,10 +3,12 @@ package com.example.histopath;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,9 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.DatabaseError;
-
 
 
 public class StudentLogin extends AppCompatActivity {
@@ -64,6 +63,7 @@ public class StudentLogin extends AppCompatActivity {
         teacherTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 Intent intent=new Intent(StudentLogin.this, TeacherLogin.class);
                 startActivity(intent);
                 finish();
@@ -73,6 +73,7 @@ public class StudentLogin extends AppCompatActivity {
         signUpStudentLoginTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 Intent intent=new Intent(StudentLogin.this, StudentSignUp.class);
                 startActivity(intent);
             }
@@ -81,6 +82,7 @@ public class StudentLogin extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 String email=String.valueOf(emailLoginPage.getText());
                 String password=String.valueOf(passwordLoginPage.getText());
                 if(TextUtils.isEmpty(email)||TextUtils.isEmpty(password))
@@ -130,5 +132,13 @@ public class StudentLogin extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
