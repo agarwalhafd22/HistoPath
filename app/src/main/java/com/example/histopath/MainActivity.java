@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,7 +99,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         gastroIntCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, GastroQuiz.class);
+                Intent intent = new Intent(MainActivity.this, GastroIntSystem.class);
+                startActivity(intent);
+            }
+        });
+
+        renalSystemCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RenalSystem.class);
+                startActivity(intent);
+            }
+        });
+
+        femaleRepCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FemaleReproductiveSystem.class);
                 startActivity(intent);
             }
         });

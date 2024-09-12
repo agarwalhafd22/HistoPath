@@ -17,6 +17,33 @@
         android:theme="@style/Theme.HistoPath"
         tools:targetApi="31">
         <activity
+            android:name=".GastroIntSystem"
+            android:exported="false" />
+        <activity
+            android:name=".breastQuiz"
+            android:exported="false" />
+        <activity
+            android:name=".uterusQuiz"
+            android:exported="false" />
+        <activity
+            android:name=".ureterQuiz"
+            android:exported="false" />
+        <activity
+            android:name=".kidneyQuiz"
+            android:exported="false" />
+        <activity
+            android:name=".Breast"
+            android:exported="false" />
+        <activity
+            android:name=".Kidney"
+            android:exported="false" />
+        <activity
+            android:name=".RenalSystem"
+            android:exported="false" />
+        <activity
+            android:name=".FemaleReproductiveSystem"
+            android:exported="false" />
+        <activity
             android:name=".CreateOrganSystem"
             android:exported="false" />
         <activity
@@ -46,6 +73,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
